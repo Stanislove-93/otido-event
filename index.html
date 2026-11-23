@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OT i DO — От идеи до финала</title>
+  <!-- Подключение шрифта Jost -->
+  <link rel="preconnect" href="https://bunny.net" />
+  <link href="https://bunny.net/css?family=jost:400,500,600&display=swap" rel="stylesheet" />
+
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      color: #111111;
+      background-color: #ffffff;
+      line-height: 1.45;
+      overflow-x: hidden;
+    }
+
+    /* Верхний блок с вашим canvas-эффектом */
+    .hero {
+      position: relative;
+      width: 100%;
+      background-color: #E9F0F4;
+      padding: 48px 20px 60px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #ymWave {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 1120px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Слот под ваш SVG-логотип */
+    .logo-slot {
+      width: 100%;
+      max-width: 1040px;
+      min-height: 220px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 28px;
+    }
+
+    .logo-slot svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Три плашки с направлениями */
+    .pills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      width: 100%;
+      max-width: 880px;
+    }
+
+    .pill {
+      background: rgba(255, 255, 255, 0.78);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      border-radius: 999px;
+      padding: 26px 20px;
+      text-align: center;
+      font-size: 15px;
+      font-weight: 400;
+      color: #111111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 82px;
+      transition: transform 0.25s ease, background-color 0.25s ease;
+    }
+
+    .pill:hover {
+      transform: translateY(-3px);
+      background: rgba(255, 255, 255, 0.96);
+    }
+
+    /* Нижняя белая секция */
+    .info-section {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 56px 20px 72px;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 400;
+      color: #111111;
+    }
+
+    .info-block {
+      margin-bottom: 48px;
+    }
+
+    .info-block p {
+      margin-bottom: 4px;
+    }
+
+    .cta-title {
+      margin-bottom: 20px;
+      font-size: 16px;
+    }
+
+    /* Кнопки контактов */
+    .contacts-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      max-width: 540px;
+      margin: 0 auto;
+    }
+
+    .contact-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #8FFFE5;
+      color: #111111;
+      text-decoration: none;
+      padding: 22px 16px;
+      font-size: 15px;
+      font-weight: 500;
+      border-radius: 2px;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .contact-btn:hover {
+      background-color: #74f5d7;
+      transform: translateY(-2px);
+    }
+
+    /* Адаптация под смартфоны */
+    @media (max-width: 768px) {
+      .hero {
+        padding: 36px 16px 44px;
+      }
+      .logo-slot {
+        min-height: 140px;
+      }
+      .pills-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+        max-width: 400px;
+      }
+      .pill {
+        padding: 18px 20px;
+        min-height: auto;
+      }
+      .contacts-grid {
+        grid-template-columns: 1fr;
+      }
+      .info-section {
+        padding: 40px 16px 56px;
+      }
+      .info-block {
+        margin-bottom: 36px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="hero" id="heroSection">
+    <canvas id="ymWave"></canvas>
+
+    <div class="hero-content">
+      <!-- ВСТАВЬТЕ ВАШ <svg>...</svg> ВНУТРЬ ЭТОГО БЛОКА -->
+      <div class="logo-slot">
+        <svg width="1382" height="360" viewBox="0 0 1382 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M182.184 0.0146484C215.992 0.442866 247.552 10.2 274.409 26.8291V4.26562H590.052V35.5449H447.87V355.453H416.591V35.5449H287.217C331.219 68.3322 359.718 120.767 359.718 179.859L359.703 182.184C358.459 280.446 278.417 359.718 179.859 359.718L177.534 359.703C80.0459 358.468 1.24943 279.672 0.0146484 182.184L0 179.859C0 80.526 80.526 0 179.859 0L182.184 0.0146484ZM1204.47 0.0146484C1302.73 1.2594 1382 81.3021 1382 179.859L1381.99 182.184C1380.74 280.445 1300.7 359.717 1202.14 359.718L1199.82 359.703C1126.2 358.771 1063.24 313.604 1036.29 249.559C1027.58 269.693 1015.1 288.211 999.287 304.022C966.525 336.785 922.148 355.261 875.835 355.448V355.453H725.123V4.26562H875.835V4.26953C922.149 4.45677 966.525 22.9338 999.287 55.6963C1015.1 71.5072 1027.58 90.0235 1036.29 110.156C1063.52 45.4393 1127.52 0 1202.14 0L1204.47 0.0146484ZM675.36 355.453H644.08V133.65H675.36V355.453ZM179.859 31.2803C97.8013 31.2803 31.2803 97.8013 31.2803 179.859C31.2804 261.917 97.8014 328.438 179.859 328.438C261.917 328.438 328.438 261.917 328.438 179.859C328.438 97.8014 261.917 31.2804 179.859 31.2803ZM1202.14 31.2803C1120.08 31.2803 1053.56 97.8013 1053.56 179.859C1053.56 261.917 1120.08 328.438 1202.14 328.438C1284.2 328.438 1350.72 261.917 1350.72 179.859C1350.72 97.8015 1284.2 31.2806 1202.14 31.2803ZM756.403 324.173H874.743L875.709 324.169C913.773 324.015 950.244 308.829 977.169 281.904L978.429 280.629C1004.7 253.693 1019.44 217.535 1019.44 179.859L1019.43 178.066C1018.96 140.441 1003.81 104.456 977.169 77.8145C950.243 50.8889 913.773 35.7028 875.709 35.5488L874.984 35.5459H756.403V324.173ZM659.72 52.6074C672.284 52.6074 682.469 62.7925 682.469 75.3564C682.469 87.9201 672.284 98.1045 659.72 98.1045C647.156 98.1043 636.972 87.92 636.972 75.3564C636.972 62.7927 647.156 52.6077 659.72 52.6074Z" fill="url(#paint0_linear_835_91)"/>
+            <defs>
+            <linearGradient id="paint0_linear_835_91" x1="691" y1="0" x2="691" y2="359.718" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#E9F0F4"/>
+            <stop offset="1" stop-color="#8FFFE5"/>
+            </linearGradient>
+            </defs>
+            </svg>
+      </div>
+
+      <div class="pills-grid">
+        <div class="pill">Праздники, которые запоминаются</div>
+        <div class="pill">Конференции, которые впечатляют</div>
+        <div class="pill">Тренинги, которые вдохновляют</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="info-section">
+    <div class="info-block">
+      <p>Разработка концепции под ключ</p>
+      <p>Работа с подрядчиками и бюджетом</p>
+      <p>Безупречный тайминг и атмосфера</p>
+    </div>
+
+    <div class="info-block">
+      <p>Наши партнеры — звезды театральных сцен, кинематографа и музыкальной индустрии.</p>
+      <p>Профессиональное световое и звуковое сопровождение от ведущих специалистов театра</p>
+      <p>и индустрии шоу-бизнеса.</p>
+    </div>
+
+    <div>
+      <p class="cta-title">Мы создаем не просто мероприятия, а настоящие культурные события.</p>
+      <div class="contacts-grid">
+        <a href="tel:+79654359567" class="contact-btn">Алсу +7 965 435-95-67</a>
+        <a href="tel:+79165211122" class="contact-btn">Виктория +7 916 521-11-22</a>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const hero = document.getElementById("heroSection");
+    const canvas = document.getElementById("ymWave");
+    const ctx = canvas.getContext("2d");
+
+    let width = 0;
+    let height = 0;
+
+    const pointer = {
+      x: 0,
+      y: 0,
+      targetX: 0,
+      targetY: 0,
+      initialized: false
+    };
+
+    function resize() {
+      const rect = hero.getBoundingClientRect();
+      width = canvas.width = rect.width;
+      height = canvas.height = rect.height;
+
+      if (!pointer.initialized) {
+        pointer.x = pointer.targetX = width * 0.5;
+        pointer.y = pointer.targetY = height * 0.5;
+        pointer.initialized = true;
+      }
+    }
+
+    window.addEventListener("resize", resize);
+    new ResizeObserver(resize).observe(hero);
+    resize();
+
+    window.addEventListener("mousemove", (e) => {
+      const rect = hero.getBoundingClientRect();
+      pointer.targetX = e.clientX - rect.left;
+      pointer.targetY = e.clientY - rect.top;
+    });
+
+    window.addEventListener("touchmove", (e) => {
+      if (e.touches && e.touches.length > 0) {
+        const rect = hero.getBoundingClientRect();
+        pointer.targetX = e.touches[0].clientX - rect.left;
+        pointer.targetY = e.touches[0].clientY - rect.top;
+      }
+    }, { passive: true });
+
+    let time = 0;
+
+    function drawOrganicBlob(cx, cy, baseRadius, morphAmp, speed, phase, colorStart, colorEnd, alpha) {
+      const points = 140;
+      ctx.save();
+      ctx.beginPath();
+
+      for (let i = 0; i <= points; i++) {
+        const angle = (i / points) * Math.PI * 2;
+
+        const n1 = Math.sin(angle * 3 + time * speed + phase) * morphAmp;
+        const n2 = Math.cos(angle * 4 - time * (speed * 0.8) + phase * 1.3) * (morphAmp * 0.65);
+        const n3 = Math.sin(angle * 2 + time * (speed * 1.2)) * (morphAmp * 0.45);
+
+        const r = baseRadius + n1 + n2 + n3;
+        const x = cx + Math.cos(angle) * r;
+        const y = cy + Math.sin(angle) * r;
+
+        if (i === 0) {
+          ctx.moveTo(x, y);
+        } else {
+          ctx.lineTo(x, y);
+        }
+      }
+
+      ctx.closePath();
+
+      const grad = ctx.createLinearGradient(
+        cx - baseRadius,
+        cy - baseRadius,
+        cx + baseRadius,
+        cy + baseRadius
+      );
+      grad.addColorStop(0, colorStart);
+      grad.addColorStop(1, colorEnd);
+
+      ctx.globalAlpha = alpha;
+      ctx.fillStyle = grad;
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function render() {
+      time += 0.018;
+
+      pointer.x += (pointer.targetX - pointer.x) * 0.06;
+      pointer.y += (pointer.targetY - pointer.y) * 0.06;
+
+      const offsetX = (pointer.x - width * 0.5) * 0.35;
+      const offsetY = (pointer.y - height * 0.5) * 0.35;
+
+      // 1. Базовый фон #E9F0F4
+      ctx.globalCompositeOperation = "source-over";
+      ctx.fillStyle = "#E9F0F4";
+      ctx.fillRect(0, 0, width, height);
+
+      const minSide = Math.min(width, height);
+      const maxSide = Math.max(width, height);
+
+      // 2. Мягкое фоновое свечение за курсором
+      const ambientGrad = ctx.createRadialGradient(
+        pointer.x,
+        pointer.y,
+        0,
+        pointer.x,
+        pointer.y,
+        maxSide * 0.65
+      );
+      ambientGrad.addColorStop(0, "rgba(143, 255, 229, 0.55)"); // #8FFFE5
+      ambientGrad.addColorStop(0.5, "rgba(116, 209, 255, 0.30)"); // #74D1FF
+      ambientGrad.addColorStop(1, "rgba(233, 240, 244, 0)");     // #E9F0F4
+
+      ctx.fillStyle = ambientGrad;
+      ctx.fillRect(0, 0, width, height);
+
+      // 3. Многослойная живая волна в центре с реакцией на мышь
+      const centerX = width * 0.5 + offsetX;
+      const centerY = height * 0.5 + offsetY;
+
+      drawOrganicBlob(
+        centerX - offsetX * 0.25,
+        centerY - offsetY * 0.25,
+        minSide * 0.45,
+        minSide * 0.065,
+        1.1,
+        0.0,
+        "#74D1FF",
+        "#8FFFE5",
+        0.45
+      );
+
+      drawOrganicBlob(
+        centerX + offsetX * 0.15,
+        centerY + offsetY * 0.15,
+        minSide * 0.38,
+        minSide * 0.055,
+        -1.35,
+        2.1,
+        "#8FFFE5",
+        "#74D1FF",
+        0.65
+      );
+
+      drawOrganicBlob(
+        centerX + offsetX * 0.3,
+        centerY + offsetY * 0.3,
+        minSide * 0.31,
+        minSide * 0.045,
+        1.6,
+        4.2,
+        "#E9F0F4",
+        "#8FFFE5",
+        0.85
+      );
+
+      requestAnimationFrame(render);
+    }
+
+    render();
+  </script>
+</body>
+</html>
